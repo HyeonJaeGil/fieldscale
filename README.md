@@ -1,7 +1,7 @@
 <div align="center">
 <h2>Fieldscale: Locality-Aware Field-based Adaptive Rescaling for Thermal Infrared Image</h2>
 
-[**Hyeonjae Gil**](https://hyeonjaegil.github.io/)<sup>1</sup> · [**Myeong-Hwan Jeon**](https://myunghwanjeon.github.io/)<sup>1</sup> · [**Ayoung Kim**](https://ayoungk.github.io/)<sup>1*</sup>
+[**Hyeonjae Gil**](https://hyeonjaegil.github.io/)<sup>1</sup> · [**Myung-Hwan Jeon**](https://myunghwanjeon.github.io/)<sup>1</sup> · [**Ayoung Kim**](https://ayoungk.github.io/)<sup>1*</sup>
 
 <sup>1</sup>Seoul National University
 
