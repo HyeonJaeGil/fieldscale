@@ -5,96 +5,37 @@
 
 <sup>1</sup>Seoul National University
 
-**RA-L 2024**
+**RA-L 2024 (and ICRA 2025)**
 
 [[`Paper`](https://arxiv.org/abs/2405.15395)] [[`Supplementary Video`](https://youtu.be/xe7sFsw655c?feature=shared)] [[`BibTex`](#citing-fieldscale)]
+
+<img src="./assets/fieldscale_main.png" width="960"/><br>
 </div>
 
-Python implementation of our recent work referred to as **Fieldscale**.
+## What is Fieldscale?
+Fieldscale is a TIR image rescaling method that adaptively rescales TIR images by considering both the intensity value and spatial context of each pixel. Output TIR images exhibit **enhanced image quality** and strong usability for downstream tasks such as **object detection** and **place recognition**.
 
+## How does it work?
 <div align="center">
-
-<img src="./assets/fieldscale_result.png" width="1080"/>
-
+<img src="./assets/fieldscale_example.gif" width="640"/> 
 </div>
 
-Fieldscale improves the rescaling of thermal infrared (TIR) images by considering both the intensity value and spatial context of each pixel. This locality-aware method produces 8-bit rescaled images with minimal information loss and high visibility, enhancing image quality and usability for downstream tasks. 
+Fieldscale constructs two 2D scalar fields, the <span style="color:blue">*min field*</span> and the <span style="color:red">*max field*</span>, to encode the local intensity range of each pixel. The fields are then used to ***adaptively*** rescale the input image. Although Fieldscale is designed for **TIR images**, it can also be applied to the **videos**.
 
-## Brief Overview
+## Comparison with Existing Methods
 <div align="center">
-
-<img src="./assets/fieldscale_overview.png" width="1080"/><br>
-<img src="./assets/fieldscale_example.gif" width="640"/>
-
+<img src="./assets/rescaling_comparison.gif" width="640"/>
 </div>
 
-Fieldscale constructs two scalar fields, the *min field* and the *max field*, to encode the local intensity range of each pixel. The fields are then used to adaptively rescale the input image. For details, please see the **[paper](https://arxiv.org/abs/2405.15395)**.
-
+Fieldscale effectively rescales TIR images while preserving the local details and enhancing the global consistency. We note that *FLIR AGC* is only provided by the FLIR thermal camera manufacturer and Fieldscale can be **a general-purpose method** for various TIR cameras.
 
 ## How to use
+Fieldscale is currently implemented in Python (C++ implementation will be available soon). Please refer to the [python](./python/) directory for more details.
 
-Install dependencies using pip:
-```shell
-pip install numpy opencv-python
-```
-
-### Image Rescaling
-Use the following code to rescale a thermal infrared image:
-
-```python
-import cv2
-from fieldscale import Fieldscale
-
-params = {
-    'max_diff': 400,
-    'min_diff': 400,
-    'iteration': 7,
-    'gamma': 1.5,
-    'clahe': True,
-    'video': False
-}
-
-input = './assets/demo.tiff' # path to the input image
-fieldscale = Fieldscale(**params)
-rescaled = fieldscale(input) # input can be either a path to an image or a uint16 numpy array
-cv2.imshow('rescaled', rescaled)
-cv2.waitKey(0)
-```
-
-### Video Rescaling
-Please note that Fieldscale is designed to process a single image. But you can apply Fieldscale to a video by processing each frame sequentially. If you want to rescale a video, set `video` to `True` and provide the path to the video file:
-
-```python
-import os
-import cv2
-from fieldscale import Fieldscale
-
-params_video = {
-    'max_diff': 400,
-    'min_diff': 400,
-    'iteration': 7,
-    'gamma': 1.5,
-    'clahe': True,
-    'video': True
-}
-folder_path = './assets/video' # path to the folder containing video frames
-inputs = [os.path.join(folder_path, file) for file in sorted(os.listdir(folder_path))]
-fieldscale = Fieldscale(**params_video)
-for input in inputs:
-    rescaled = fieldscale(input)
-    cv2.imshow('rescaled', rescaled)
-    if cv2.waitKey(0) & 0xFF == ord('q'):
-        break
-cv2.destroyAllWindows()
-```
-
-### Parameters
-Fieldscale has several parameters that can be adjusted to suit your needs:
-- `max_diff`, `min_diff`: $T_\text{LES}$ value in the paper. Depending on the input image, the optimal value may vary between 100 and 400. If you want to suppress the extreme parts and maximize the global consistency, set `max_diff` to a lower value (around 100). If you want to preserve the local details, set `max_diff` to a higher value (around 400).
-- `iteration`: The number of iterations to apply the message passing. The optimal value is 7.
-- `gamma`: The gamma value for gamma correction. The optimal value is 1.5.
-- `clahe`: Whether to apply CLAHE. CLAHE can enhance the contrast of the image, but it may not be necessary for some images.
-- `video`: Whether to process a video. If set to `True`, fields are smoothed to produce temporally consistent results.
+## News
+- **2025-01-28:** Fieldscale will be presented at the IEEE International Conference on Robotics and Automation (ICRA) 2025.
+- **2024-06-07:** All code are now available on GitHub.
+- **2024-05-17:** Fieldscale has been accepted to IEEE Robotics and Automation Letters (RA-L)!
 
 ## Citing Fieldscale
 
