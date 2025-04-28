@@ -1,40 +1,29 @@
-# Fieldscale-CPP (14-bit → 8-bit)
+# Fieldscale C++ Implementation
 
-**C++17 port** of the original Python code from  
-*“Fieldscale: Locality-Aware Field-Based Adaptive Rescaling for Thermal Infrared Image”*  
-(Hyeonjae Gil, Myeon-Hwan Jeon, Ayoung Kim – IEEE RA-L 2024).
-
-This repository keeps the algorithm identical, ships a tiny demo executable, and can be dropped into ROS or any C++ project.
-
----
-
-# 1  Dependencies
-
-| Library | Tested version | Ubuntu/Debian install |
-|---------|----------------|-----------------------|
-| OpenCV (core, imgproc, imgcodecs, highgui) | ≥ 3.4 (4.x used) | `sudo apt install libopencv-dev` |
-| CMake | ≥ 3.10 | `sudo apt install cmake` |
-| C++17 compiler | GCC 9 / Clang 12 / MSVC 2022 | `sudo apt install g++` |
-
----
-
-# 2  Build & run the demo
+We provide a minimal C++ version of Fieldscale and simple example.
+We hope this version can be included and utilized in any C++ based TIR codebase.
+For more details in parameter tuning, please refer to [python](../python/) directory.
 
 
+## Installation
+
+```bash
+sudo apt install libopencv-dev cmake g++
+```
+Any opencv version greater than 3.4 will work.
 
 ## clone & build
 
 ```bash
-git clone -b cpp-port --single-branch https://github.com/HyeonJaeGil/fieldscale.git
-cd fieldscale/cpp
+# on cpp dir
 mkdir build && cd build
-cmake ..
-make -j$(nproc)
+cmake .. && make
 ```
 
-## run on a 14-bit image
+## run demo
 
 ```bash
+# on build dir
 ./fieldscale_demo ../sample/thermal_14bit.png          # writes fieldscaled.png
 ./fieldscale_demo ../sample/thermal_14bit.png out.png  # custom output name
 ```
