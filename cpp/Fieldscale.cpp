@@ -88,11 +88,13 @@ Mat Fieldscale::localExtremaSuppression(const Mat &grid, int distance,
 
             if (extrema == "max") {
                 double neighborMax = *std::max_element(neighbors.begin(), neighbors.end());
-                if (current >= neighborMax && (current - meanVal) > threshold)
+                if ((current - meanVal) > threshold)
+                // if (current >= neighborMax && (current - meanVal) > threshold)
                     result.at<double>(y, x) = meanVal + threshold;
             } else { // min
                 double neighborMin = *std::min_element(neighbors.begin(), neighbors.end());
-                if (current <= neighborMin && (meanVal - current) > threshold)
+                // if (current <= neighborMin && (meanVal - current) > threshold)
+                if ((meanVal - current) > threshold)
                     result.at<double>(y, x) = meanVal - threshold;
             }
         }
