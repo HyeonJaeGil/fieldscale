@@ -12,6 +12,12 @@
 <img src="./assets/fieldscale_main.png" width="960"/><br>
 </div>
 
+---
+
+### Follow-up: FIELDSCALE 2.0
+
+Fieldscale 2.0 is a follow-up to Fieldscale that addresses saturation, residual darkening, and temporal flickering. Its code and usage instructions are available at [**FIELDSCALE 2.0**](https://github.com/rladmstj/Fieldscale2.0).
+
 ## What is Fieldscale?
 Fieldscale is a TIR image rescaling method that adaptively rescales TIR images by considering both the intensity value and spatial context of each pixel. Output TIR images exhibit **enhanced image quality** and strong usability for downstream tasks such as **object detection** and **place recognition**.
 
