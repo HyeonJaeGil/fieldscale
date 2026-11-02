@@ -72,11 +72,13 @@ def local_extrema_suppression(grid: np.ndarray,
     for i, j in np.ndindex(grid.shape):
         neighbors = get_neighbor_grids(grid, (i, j), max_distance=local_distance)
         neighbor_values = np.array([grid[xy] for xy in neighbors])
-        if extrema == 'max' and grid[i, j] >= neighbor_values.max():
+        # if extrema == 'max' and grid[i, j] >= neighbor_values.max():
+        if extrema == 'max' :
             diff = grid[i, j] - neighbor_values.mean()
             if diff > diff_threshold:
                 grid[i, j] = neighbor_values.mean() + diff_threshold
-        elif extrema == 'min' and grid[i, j] <= neighbor_values.min():
+        # elif extrema == 'min' and grid[i, j] <= neighbor_values.min():
+        elif extrema == 'min':
             diff = neighbor_values.mean() - grid[i, j]
             if diff > diff_threshold:
                 grid[i, j] = neighbor_values.mean() - diff_threshold
